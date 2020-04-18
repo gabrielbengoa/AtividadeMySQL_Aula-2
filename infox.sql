@@ -45,4 +45,35 @@ values('Gabriel Barros Bengoa','Rua Fox, 007','Patriarca','São Paulo','SP','154
 insert into tbclientes(nomecli,endcli,bairrocli,cidcli,estcli,cepcli,fonecli,emailcli)
 values('Rodrigo Blabla','Rua Moon, 1998','Vila Matilde','São Paulo','SP','54777-050','5492-9988','rodrigobla@ig.com.br');
 
-select * from tbclientes
+select * from tbclientes;
+
+use dbinfox;
+
+create table tbos(
+os int primary key auto_increment,
+data_os timestamp default current_timestamp,
+equipamento varchar(150) not null,
+defeito varchar(150) not null,
+servico varchar(150),
+tecnico varchar(30),
+valor decimal(10,2),
+idcli int not null,
+foreign key(idcli) references tbclientes(idcli)
+);
+
+describe tbos;
+
+insert into tbos (equipamento,defeito,servico,tecnico,valor,idcli)
+values ('Notebook','Não liga','Troca da fonte','Zé','87.50','1');
+
+select * from tbos;
+
+
+
+-- o código abaixo traz informações de duas tabelas
+select
+O.os,equipamento,defeito,servico,valor,
+C.nomecli,fonecli
+from tbos as O
+inner join tbclientes as C
+on (O.idcli = C.idcli);
